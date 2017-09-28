@@ -1,4 +1,4 @@
-# vue-multipane
+# vue-multipane ![npm tag](https://img.shields.io/npm/v/vue-multipane.svg)
 > Resizable split panes for [Vue.js](http://vuejs.org).
 
 ## Features
