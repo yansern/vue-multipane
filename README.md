@@ -84,13 +84,13 @@ This example creates a resize handle that also acts as a separator:
 **CSS**
 ```css
 .multipane.foo.layout-v .multipane-resizer {
-  margin: 0; left: 0; /* reset existing styling */
+  margin: 0; left: 0; /* reset default styling */
   width: 15px;
   background: grey;
 }
 
 .multipane.foo.layout-h .multipane-resizer {
-  margin: 0; left: 0; /* reset existing styling */
+  margin: 0; top: 0; /* reset default styling */
   height: 15px;
   background: grey;
 }
