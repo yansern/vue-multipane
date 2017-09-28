@@ -1,6 +1,6 @@
 {
   "name": "vue-multipane",
-  "description": "Resizable split panes for Vue.",
+  "description": "Resizable split panes for Vue.js.",
   "version": "0.9.1",
   "author": "Yan Sern <hey@yansern.io>",
   "main": "dist/vue-multipane.js",
