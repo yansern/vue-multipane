@@ -7,7 +7,7 @@
           <h2 class="title">Vertical Panes</h2>
         </div>
         <div class="column is-narrow">
-          <a href="https://github.com/yansern/vue-multipane" class="button is-warning">View code &raquo;</a>
+          <a href="https://github.com/yansern/vue-multipane/blob/master/demo/src/VerticalPanes.vue" class="button is-warning">View code &raquo;</a>
         </div>
       </div>
       <VerticalPanes></VerticalPanes>
@@ -20,7 +20,7 @@
           <h2 class="title">Horizontal Panes</h2>
         </div>
         <div class="column is-narrow">
-          <a href="https://github.com/yansern/vue-multipane" class="button is-warning">View code &raquo;</a>
+          <a href="https://github.com/yansern/vue-multipane/blob/master/demo/src/HorizontalPanes.vue" class="button is-warning">View code &raquo;</a>
         </div>
       </div>
       <HorizontalPanes></HorizontalPanes>
@@ -33,7 +33,7 @@
           <h2 class="title">Custom Resizer</h2>
         </div>
         <div class="column is-narrow">
-          <a href="https://github.com/yansern/vue-multipane" class="button is-warning">View code &raquo;</a>
+          <a href="https://github.com/yansern/vue-multipane/blob/master/demo/src/CustomResizer.vue" class="button is-warning">View code &raquo;</a>
         </div>
       </div>
       <CustomResizer></CustomResizer>
