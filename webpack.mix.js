@@ -1,5 +1,5 @@
 const mix = require('laravel-mix');
-const mixEnv = require('laravel-mix-env');
+const mixEnv = require('laravel-mix-environments');
 const argv = require('yargs').argv;
 
 // Add absolute path @ resolver.
@@ -37,12 +37,12 @@ if (argv.env.entry=='src') {
     });
 }
 
-if (argv.env.entry=='docs') {
+if (argv.env.entry=='demo') {
 
-  // Docs files
+  // Demo files
   mix
-    .js('docs/src/main.js', 'docs/main.js')
-    .copy('docs/src/index.html', 'docs/index.html');
+    .js('demo/src/main.js', 'demo/main.js')
+    .copy('demo/src/index.html', 'demo/index.html');
 
   if (mix.inDevelopment()) {
 
@@ -59,7 +59,7 @@ if (argv.env.entry=='docs') {
           port: port,
           publicPath: publicPath,
           public: `localhost:${port}`,
-          contentBase: './docs/',
+          contentBase: './demo/',
           noInfo: false,
           quiet: false,
           open: true,

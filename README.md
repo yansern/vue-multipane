@@ -1,7 +1,7 @@
 # vue-multipane
 > Resizable split panes for [Vue.js](http://vuejs.org).
 
-Check out the [Live Demo](https://yansern.github.io/vue-multipane/).
+Check out the [live demo](https://yansern.github.io/vue-multipane/demo/index.html).
 
 ## Features
 
