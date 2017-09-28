@@ -1,17 +1,17 @@
 # vue-multipane
 > Resizable split panes for [Vue.js](http://vuejs.org).
 
-## Demo
-
-![Multipane Preview](https://raw.githubusercontent.com/yansern/vue-multipane/master/demo/preview.gif)
-Check out the [live demo](https://yansern.github.io/vue-multipane/demo/index.html).
-
 ## Features
 
 * Supports vertical & horizontal layouts.
 * Supports fixed and fluid panes.
 * Uses CSS3 Flexbox.
 * Simple. Customize everything with just CSS!
+
+## Demo
+
+![Multipane Preview](https://raw.githubusercontent.com/yansern/vue-multipane/master/demo/preview.gif)
+Check out the [live demo](https://yansern.github.io/vue-multipane/demo/index.html).
 
 ## Installation
 ```bash
@@ -115,7 +115,7 @@ You can also make only a specific pane to have the ability to resize by only add
 |    Property    |    Description   |   Type   |	Default	|
 | -----------------  | ---------------- | :--------: | :----------: |
 | layout       | Determine layout of panes. |String [vertical, horizontal] |vertical |
-| classes      | Additional classnames you can add to the multipane container. |String | (empty string) |
+| classname    | Additional classnames you can add to the multipane container. |String | (empty string) |
 
 
 ## Events
