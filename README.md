@@ -90,7 +90,7 @@ This example creates a resize handle that also acts as a separator:
 }
 
 .multipane.foo.layout-h .multipane-resizer {
-  margin: 0; left: 5; /* reset existing styling */
+  margin: 0; left: 0; /* reset existing styling */
   height: 15px;
   background: grey;
 }
