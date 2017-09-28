@@ -44,8 +44,8 @@ Then, use the `<multipane>` and `<multipane-resizer>` tag to construct your spli
 </multipane>
 ```
 
-## Customizing vue-multipane
-You can customize everything using CSS.
+## Customizing pane layout
+You can customize pane layouts using CSS.
 
 * Create vertical or horizontal layouts by using the `layout` attribute.
 * Set initial pane size using `width` or `height` CSS property.
