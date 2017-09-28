@@ -72,26 +72,24 @@ This example creates a resize handle that also acts as a separator:
 
 **HTML**
 ```html
-<div class="foobar">
-  <multipane layout="vertical">
-    <div>Pane 1</div>
-    <multipane-resizer></multipane-resizer>
-    <div>Pane 2</div>
-    <multipane-resizer></multipane-resizer>
-    <div>Pane 3</div>
-  </multipane>
-</div>
+<multipane classname="foo" layout="vertical">
+  <div>Pane 1</div>
+  <multipane-resizer></multipane-resizer>
+  <div>Pane 2</div>
+  <multipane-resizer></multipane-resizer>
+  <div>Pane 3</div>
+</multipane>
 ```
 
 **CSS**
 ```css
-.foobar .multipane.layout-v .multipane-resizer {
+.multipane.foo.layout-v .multipane-resizer {
   margin: 0; left: 0; /* reset existing styling */
   width: 15px;
   background: grey;
 }
 
-.foobar .multipane.layout-h .multipane-resizer {
+.multipane.foo.layout-h .multipane-resizer {
   margin: 0; left: 5; /* reset existing styling */
   height: 15px;
   background: grey;
