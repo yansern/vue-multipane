@@ -1,17 +1,18 @@
 # vue-multipane ![npm tag](https://img.shields.io/npm/v/vue-multipane.svg)
 > Resizable split panes for [Vue.js](http://vuejs.org).
 
+<p align="center">
+  <img src="https://raw.githubusercontent.com/yansern/vue-multipane/master/demo/preview.gif" />
+  <br/>
+  <b>Check out the <a href="https://yansern.github.io/vue-multipane/demo/index.html">live demo</a>.</b>
+</p>
+
 ## Features
 
 * Supports vertical & horizontal layouts.
 * Supports fixed and fluid panes.
 * Uses CSS3 Flexbox.
 * Simple. Customize everything with just CSS!
-
-## Demo
-
-![Multipane Preview](https://raw.githubusercontent.com/yansern/vue-multipane/master/demo/preview.gif)
-Check out the [live demo](https://yansern.github.io/vue-multipane/demo/index.html).
 
 ## Installation
 ```bash
