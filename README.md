@@ -4,15 +4,15 @@
 <p align="center">
   <img src="https://raw.githubusercontent.com/yansern/vue-multipane/master/demo/preview.gif" />
   <br/>
-  <b>Check out the <a href="https://yansern.github.io/vue-multipane/demo/index.html">live demo</a>.</b>
+  <b>Check out the <a href="https://yansern.github.io/vue-multipane/demo/index.html" target="_blank">live demo</a>.</b>
 </p>
 
 ## Features
 
+* Uses CSS3 Flexbox.
 * Supports vertical & horizontal layouts.
 * Supports fixed and fluid panes.
-* Uses CSS3 Flexbox.
-* Simple. Customize everything with just CSS!
+* Configure everything using CSS!
 
 ## Installation
 ```bash
@@ -21,7 +21,7 @@ $ npm install vue-multipane
 
 ## Using vue-multipane
 
-First, import `Multipane` and `MultipaneResizer` into your existing Vue component.
+First, import `vue-multipane` into your Vue component.
 ```js
 import { Multipane, MultipaneResizer } from 'vue-multipane';
 
@@ -34,7 +34,7 @@ export default {
 }
 ```
 
-Then, use the `<multipane>` and `<multipane-resizer>` tag to construct your split pane layout.
+Then, construct your split pane layout using multipane component.
 ```html
 <multipane>
   <div>Pane 1</div>
@@ -48,15 +48,15 @@ Then, use the `<multipane>` and `<multipane-resizer>` tag to construct your spli
 ## Customizing pane layout
 You can customize pane layouts using CSS.
 
-* Create vertical or horizontal layouts by using the `layout` attribute.
-* Set initial pane size using `width` or `height` CSS property.
-* Set pane size constraints using `min-width`, `min-height`, `max-width`, `max-height` CSS property.
-* Create and mix both fixed or fluid panes by using the either `px` or `%` units when setting the pane's `width` or `height` CSS property.
-* For that one pane that should take up remaining space available on the pane container, use the `flex-grow: 1` CSS property.
+* Create vertical/horizontal layouts using `layout="vertical|horizontal"` attribute.
+* Set initial pane size using `width|height` CSS property.
+* Set pane size constraints using `min-width|min-height|max-width|max-height` CSS property.
+* Create fixed/fluid combination panes by using `px|%` units.
+* Use `flex-grow: 1` for that one pane that should take all remaining space available on the multipane container.
 
 This example below shows a combination of different styling properties you can apply to make the panes render the way you want it to:
 ```html
-<multipane layout="vertical">
+<multipane class="foo" layout="vertical">
   <div :style="{ width: '100px', maxWidth: '200px' }">Pane 1</div>
   <multipane-resizer></multipane-resizer>
   <div :style="{ width: '25%', maxWidth: '50%' }">Pane 2</div>
@@ -69,37 +69,25 @@ This example below shows a combination of different styling properties you can a
 ## Customizing resize handle
 By default, vue-multipane creates an invisible 10px resize handle that sits in between 2 panes. You can customize the appearance of the resize handle to fit your needs.
 
-This example creates a resize handle that also acts as a separator:
+This example below creates a 15px blue resize handle:
 
-**HTML**
-```html
-<multipane classname="foo" layout="vertical">
-  <div>Pane 1</div>
-  <multipane-resizer></multipane-resizer>
-  <div>Pane 2</div>
-  <multipane-resizer></multipane-resizer>
-  <div>Pane 3</div>
-</multipane>
-```
-
-**CSS**
 ```css
 .multipane.foo.layout-v .multipane-resizer {
   margin: 0; left: 0; /* reset default styling */
   width: 15px;
-  background: grey;
+  background: blue;
 }
 
 .multipane.foo.layout-h .multipane-resizer {
   margin: 0; top: 0; /* reset default styling */
   height: 15px;
-  background: grey;
+  background: blue;
 }
 
 ```
 
 #### Optional resize handle
-You can also make only a specific pane to have the ability to resize by only adding the `<multipane-resizer>` next to the pane that requires it.
+You can also add resize handle only specific panes by just adding `<multipane-resizer>` next it.
 
 ```html
 <multipane>
@@ -111,20 +99,24 @@ You can also make only a specific pane to have the ability to resize by only add
 ```
 
 ## Options
-|    Property    |    Description   |   Type   |	Default	|
-| -----------------  | ---------------- | :--------: | :----------: |
-| layout       | Determine layout of panes. |String [vertical, horizontal] |vertical |
-| classname    | Additional classnames you can add to the multipane container. |String | (empty string) |
 
+** Multipane **
+
+|    Property    |    Description   |   Type     |  Default     |
+| -------------- | ---------------- | :--------: | :----------: |
+| layout         | Determine layout of panes. | String [vertical, horizontal] |vertical |
 
 ## Events
-|    Event    |    Description   |   Returns   |
-| -----------------  | ---------------- | :--------: |
+
+** Multipane **
+
+|    Event           |    Description   |   Returns  |
+| ------------------ | ---------------- | :--------: |
 | paneresizestart    | When user clicks on the resize handle to start resizing a pane. | pane, container, size |
-| paneresize    | When user is resizing a pane. | pane, container, size |
-| paneresizestop    | When user release the resize handle to stop resizing a pane. | pane, container, size |
+| paneresize         | When user is resizing a pane. | pane, container, size |
+| paneresizestop     | When user release the resize handle to stop resizing a pane. | pane, container, size |
 
 ## License
-**[vue-multipane](https://github.com/yansern/vue-multipane)** by [Yan Sern](https://twitter.com/yansernio). This is an open source project released under the [MIT License](LICENSE).
+**[vue-multipane](https://github.com/yansern/vue-multipane)** by [Yan Sern](https://twitter.com/yansernio) licensed under [MIT](LICENSE).
 
 > PS: I would love to know if you're using vue-multipane. Tweet to me at [@yansernio](https://twitter.com/yansernio).
