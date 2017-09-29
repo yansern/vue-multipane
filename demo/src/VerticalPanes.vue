@@ -1,5 +1,5 @@
 <template>
-<multipane classname="vertical-panes" layout="vertical">
+<multipane class="vertical-panes" layout="vertical">
   <div class="pane" :style="{ minWidth: '100px', width: '150px', maxWidth: '200px' }">
     <div>
       <h6 class="title is-6">Pane 1</h6>

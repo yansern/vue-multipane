@@ -1,5 +1,5 @@
 <template>
-<multipane classname="custom-resizer" layout="vertical">
+<multipane class="custom-resizer" layout="vertical">
   <div class="pane">
     <div>
       <h6 class="title is-6">Pane 1</h6>

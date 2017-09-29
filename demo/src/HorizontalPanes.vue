@@ -1,5 +1,5 @@
 <template>
-<multipane classname="horizontal-panes" layout="horizontal">
+<multipane class="horizontal-panes" layout="horizontal">
   <div class="pane" :style="{ minHeight: '100px', height: '200px', maxHeight: '300px' }">
     <div>
       <h6 class="title is-6">Pane 1</h6>

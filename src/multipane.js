@@ -9,10 +9,6 @@ export default {
       type: String,
       default: LAYOUT_VERTICAL,
     },
-    classname: {
-      type: String,
-      default: '',
-    },
   },
 
   data() {
@@ -27,7 +23,6 @@ export default {
         'multipane',
         'layout-' + this.layout.slice(0, 1),
         this.isResizing ? 'is-resizing' : '',
-        this.classname,
       ];
     },
     cursor() {
