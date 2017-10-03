@@ -15,10 +15,6 @@ var __vue_module__ = {
       type: String,
       default: LAYOUT_VERTICAL,
     },
-    classname: {
-      type: String,
-      default: '',
-    },
   },
 
   data: function data() {
@@ -32,8 +28,7 @@ var __vue_module__ = {
       return [
         'multipane',
         'layout-' + this.layout.slice(0, 1),
-        this.isResizing ? 'is-resizing' : '',
-        this.classname ];
+        this.isResizing ? 'is-resizing' : '' ];
     },
     cursor: function cursor() {
       return this.isResizing
@@ -51,7 +46,7 @@ var __vue_module__ = {
       var initialPageX = ref.pageX;
       var initialPageY = ref.pageY;
 
-      if (resizer.className.match('multipane-resizer')) {
+      if (resizer.className && resizer.className.match('multipane-resizer')) {
         var self = this;
         var container = self.$el;
         var layout = self.layout;
@@ -131,7 +126,34 @@ var __vue_module__ = {
   },
 };
 
-(function(){ if(typeof document !== 'undefined'){ var head=document.head||document.getElementsByTagName('head')[0], style=document.createElement('style'), css=".multipane { display: flex; } .multipane.layout-h { flex-direction: column; } .multipane.layout-v { flex-direction: row; } "; style.type='text/css'; if (style.styleSheet){ style.styleSheet.cssText = css; } else { style.appendChild(document.createTextNode(css)); } head.appendChild(style); } })();
+(function(){ if(typeof document !== 'undefined'){ var head=document.head||document.getElementsByTagName('head')[0], style=document.createElement('style'), css=".multipane { display: flex; } .multipane.layout-h { flex-direction: column; } .multipane.layout-v { flex-direction: row; } .multipane > div { position: relative; z-index: 1; } .multipane-resizer { display: block; position: relative; z-index: 2; } .layout-h > .multipane-resizer { width: 100%; height: 10px; margin-top: -10px; top: 5px; cursor: row-resize; } .layout-v > .multipane-resizer { width: 10px; height: 100%; margin-left: -10px; left: 5px; cursor: col-resize; } "; style.type='text/css'; if (style.styleSheet){ style.styleSheet.cssText = css; } else { style.appendChild(document.createTextNode(css)); } head.appendChild(style); } })();
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -155,36 +177,7 @@ var __vue_module__ = {
     var __$__vue_module__ = Object.assign(__vue_module__, {render: function(){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{class:_vm.classnames,style:({ cursor: _vm.cursor, userSelect: _vm.userSelect }),on:{"mousedown":_vm.onMouseDown}},[_vm._t("default")],2)},staticRenderFns: [],});
     __$__vue_module__.prototype = __vue_module__.prototype;
 
-(function(){ if(typeof document !== 'undefined'){ var head=document.head||document.getElementsByTagName('head')[0], style=document.createElement('style'), css=".multipane > div { position: relative; z-index: 1; } .multipane-resizer { display: block; position: relative; z-index: 2; } .layout-h > .multipane-resizer { width: 100%; height: 10px; margin-top: -10px; top: 5px; cursor: row-resize; } .layout-v > .multipane-resizer { width: 10px; height: 100%; margin-left: -10px; left: 5px; cursor: col-resize; } "; style.type='text/css'; if (style.styleSheet){ style.styleSheet.cssText = css; } else { style.appendChild(document.createTextNode(css)); } head.appendChild(style); } })();
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+(function(){ if(typeof document !== 'undefined'){ var head=document.head||document.getElementsByTagName('head')[0], style=document.createElement('style'), css=""; style.type='text/css'; if (style.styleSheet){ style.styleSheet.cssText = css; } else { style.appendChild(document.createTextNode(css)); } head.appendChild(style); } })();
 
 var MultipaneResizer = {render: function(){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{staticClass:"multipane-resizer"},[_vm._t("default")],2)},staticRenderFns: [],
 };
