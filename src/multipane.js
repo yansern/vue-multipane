@@ -35,83 +35,79 @@ export default {
     },
   },
 
-  events: {
-    paneResizeBeforeStart(pane, resizer, initialPageX, initialPageY) {
-      let self = this;
-      let { $el: container, layout } = self;
+  methods: {
+    onMouseDown({ target: resizer, pageX: initialPageX, pageY: initialPageY }) {
+      if (resizer.className.match('multipane-resizer')) {
+        let self = this;
+        let { $el: container, layout } = self;
 
-      let {
-        offsetWidth: initialPaneWidth,
-        offsetHeight: initialPaneHeight,
-      } = pane;
+        let pane = resizer.previousElementSibling;
+        let {
+          offsetWidth: initialPaneWidth,
+          offsetHeight: initialPaneHeight,
+        } = pane;
 
-      let usePercentage = !!(pane.style.width + '').match('%');
+        let usePercentage = !!(pane.style.width + '').match('%');
 
-      const { addEventListener, removeEventListener } = window;
+        const { addEventListener, removeEventListener } = window;
 
-      const resize = (initialSize, offset = 0) => {
-        if (layout == LAYOUT_VERTICAL) {
-          let containerWidth = container.clientWidth;
-          let paneWidth = initialSize + offset;
+        const resize = (initialSize, offset = 0) => {
+          if (layout == LAYOUT_VERTICAL) {
+            let containerWidth = container.clientWidth;
+            let paneWidth = initialSize + offset;
 
-          return (pane.style.width = usePercentage
-            ? paneWidth / containerWidth * 100 + '%'
-            : paneWidth + 'px');
-        }
+            return (pane.style.width = usePercentage
+              ? paneWidth / containerWidth * 100 + '%'
+              : paneWidth + 'px');
+          }
 
-        if (layout == LAYOUT_HORIZONTAL) {
-          let containerHeight = container.clientHeight;
-          let paneHeight = initialSize + offset;
+          if (layout == LAYOUT_HORIZONTAL) {
+            let containerHeight = container.clientHeight;
+            let paneHeight = initialSize + offset;
 
-          return (pane.style.height = usePercentage
-            ? paneHeight / containerHeight * 100 + '%'
-            : paneHeight + 'px');
-        }
-      };
+            return (pane.style.height = usePercentage
+              ? paneHeight / containerHeight * 100 + '%'
+              : paneHeight + 'px');
+          }
+        };
 
-      const onMouseMove = function({ pageX, pageY }) {
-        let size =
-          layout == LAYOUT_VERTICAL
-            ? resize(initialPaneWidth, pageX - initialPageX)
-            : resize(initialPaneHeight, pageY - initialPageY);
+        // This adds is-resizing class to container
+        self.isResizing = true;
 
-        self.$emit('paneResize', pane, resizer, size, pageX, pageY);
-      };
+        // Resize once to get current computed size
+        let size = resize();
 
-      const onMouseUp = function({ pageX, pageY }) {
-        // Run resize one more time to set computed width/height.
-        let size =
-          layout == LAYOUT_VERTICAL
-            ? resize(pane.clientWidth)
-            : resize(pane.clientHeight);
+        // Trigger paneResizeStart event
+        self.$emit('paneResizeStart', pane, resizer, size);
 
-        // This removes is-resizing class to container
-        self.isResizing = false;
+        const onMouseMove = function({ pageX, pageY }) {
+          size =
+            layout == LAYOUT_VERTICAL
+              ? resize(initialPaneWidth, pageX - initialPageX)
+              : resize(initialPaneHeight, pageY - initialPageY);
 
-        removeEventListener('mousemove', onMouseMove);
-        removeEventListener('mouseup', onMouseUp);
+          self.$emit('paneResize', pane, resizer, size);
+        };
 
-        self.$emit('paneResizeStop', pane, resizer, size, pageX, pageY);
-      };
+        const onMouseUp = function() {
+          // Run resize one more time to set computed width/height.
+          size =
+            layout == LAYOUT_VERTICAL
+              ? resize(pane.clientWidth)
+              : resize(pane.clientHeight);
 
-      addEventListener('mousemove', onMouseMove);
-      addEventListener('mouseup', onMouseUp);
+          // This removes is-resizing class to container
+          self.isResizing = false;
 
-      // This adds is-resizing class to container
-      self.isResizing = true;
+          removeEventListener('mousemove', onMouseMove);
+          removeEventListener('mouseup', onMouseUp);
 
-      // Resize once to get current computed size
-      let size = resize();
+          self.$emit('paneResizeStop', pane, resizer, size);
+        };
 
-      // Trigger paneResizeStart event
-      self.$emit(
-        'paneResizeStart',
-        pane,
-        resizer,
-        size,
-        initialPageX,
-        initialPageY
-      );
+        addEventListener('mousemove', onMouseMove);
+        addEventListener('mouseup', onMouseUp);
+      }
     },
   },
 };
