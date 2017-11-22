@@ -27,6 +27,10 @@ var __vue_module__ = {
     };
   },
 
+  mounted: function mounted() {
+    console.log("Mounted");
+  },
+
   computed: {
     classnames: function classnames() {
       return [
@@ -50,6 +54,7 @@ var __vue_module__ = {
       var initialPageX = ref.pageX;
       var initialPageY = ref.pageY;
 
+      console.log("OK");
       if (resizer.className && resizer.className.match('multipane-resizer')) {
         var self = this;
         var container = self.$el;

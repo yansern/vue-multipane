@@ -1,9 +1,9 @@
 const LAYOUT_HORIZONTAL = 'horizontal';
 const LAYOUT_VERTICAL = 'vertical';
 
-const PANE_RESIZE_START = 'pane-resize-start';
-const PANE_RESIZE = 'pane-resize';
-const PANE_RESIZE_STOP = 'pane-resize-stop';
+const PANE_RESIZE_START = 'resizestart';
+const PANE_RESIZE = 'resize';
+const PANE_RESIZE_STOP = 'resizestop';
 
 export default {
   name: 'multipane',
@@ -20,6 +20,7 @@ export default {
       isResizing: false,
     };
   },
+
 
   computed: {
     classnames() {
@@ -41,6 +42,7 @@ export default {
 
   methods: {
     onMouseDown({ target: resizer, pageX: initialPageX, pageY: initialPageY }) {
+      
       if (resizer.className && resizer.className.match('multipane-resizer')) {
         let self = this;
         let { $el: container, layout } = self;
