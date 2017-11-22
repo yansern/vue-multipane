@@ -7,9 +7,9 @@
 var LAYOUT_HORIZONTAL = 'horizontal';
 var LAYOUT_VERTICAL = 'vertical';
 
-var PANE_RESIZE_START = 'pane-resize-start';
-var PANE_RESIZE = 'pane-resize';
-var PANE_RESIZE_STOP = 'pane-resize-stop';
+var PANE_RESIZE_START = 'resizestart';
+var PANE_RESIZE = 'resize';
+var PANE_RESIZE_STOP = 'resizestop';
 
 var __vue_module__ = {
   name: 'multipane',
@@ -27,9 +27,6 @@ var __vue_module__ = {
     };
   },
 
-  mounted: function mounted() {
-    console.log("Mounted");
-  },
 
   computed: {
     classnames: function classnames() {
@@ -54,7 +51,7 @@ var __vue_module__ = {
       var initialPageX = ref.pageX;
       var initialPageY = ref.pageY;
 
-      console.log("OK");
+      
       if (resizer.className && resizer.className.match('multipane-resizer')) {
         var self = this;
         var container = self.$el;
