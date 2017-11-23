@@ -1,5 +1,5 @@
 <template>
-<multipane class="vertical-panes" layout="vertical">
+<multipane class="vertical-panes" layout="vertical" @resize="paneResize" @resizestart='paneResizeStart' @resizestop='paneResizeStop'>
   <div class="pane" :style="{ minWidth: '100px', width: '150px', maxWidth: '200px' }">
     <div>
       <h6 class="title is-6">Pane 1</h6>
@@ -10,6 +10,9 @@
           minWidth: 100px<br/>
           width: 150px<br/>
           maxWidth: 200px<br/>
+          start resizing: {{ startResizing }}<br/>
+          stop resizing: {{ stopResizing }}<br/>
+          resizing: {{ resizing }}<br/>
         </small>
       </p>
     </div>
@@ -24,6 +27,9 @@
           <strong>Configured with:</strong><br/>
           width: 25%<br/>
           maxWidth: 50%<br/>
+          start resizing: {{ startResizing }}<br/>
+          stop resizing: {{ stopResizing }}<br/>
+          resizing: {{ resizing }}<br/>
         </small>
       </p>
     </div>
@@ -38,6 +44,9 @@
         <small>
           <strong>Configured with:</strong><br/>
           flex-grow: 1<br/>
+          start resizing: {{ startResizing }}<br/>
+          stop resizing: {{ stopResizing }}<br/>
+          resizing: {{ resizing }}<br/>
         </small>
       </p>
     </div>
@@ -47,8 +56,34 @@
 
 <script>
 import { Multipane, MultipaneResizer } from '@/src';
-
+const data = {
+  startResizing: false,
+  stopResizing: true,
+  resizing: false
+}
 export default {
+
+  data() {
+    return data;
+  },
+
+  methods: {
+    paneResizeStart() {
+      this.startResizing = true;
+      this.stopResizing = false;
+    },
+
+    paneResizeStop() {
+      this.stopResizing = true;
+      this.startResizing = false;
+      this.resizing = false;
+    },
+
+    paneResize() {
+      this.resizing = true;
+    }
+  },
+
   components: {
     Multipane,
     MultipaneResizer,
