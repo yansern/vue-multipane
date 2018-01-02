@@ -52,6 +52,9 @@ var __vue_module__ = {
         var layout = self.layout;
 
         var pane = resizer.previousElementSibling;
+        if(pane.className && pane.className.match('multipane-escape'))
+          { pane = pane.previousElementSibling; }
+
         var initialPaneWidth = pane.offsetWidth;
         var initialPaneHeight = pane.offsetHeight;
 
