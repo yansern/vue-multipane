@@ -42,6 +42,9 @@ export default {
         let { $el: container, layout } = self;
 
         let pane = resizer.previousElementSibling;
+        if(pane.className && pane.className.match('multipane-escape'))
+          pane = pane.previousElementSibling;
+
         let {
           offsetWidth: initialPaneWidth,
           offsetHeight: initialPaneHeight,
