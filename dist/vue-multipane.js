@@ -46,7 +46,7 @@ var __vue_module__ = {
       var initialPageX = ref.pageX;
       var initialPageY = ref.pageY;
 
-      if (resizer.className && resizer.className.match('multipane-resizer')) {
+      if ('string' === typeof resizer.className && resizer.className.match('multipane-resizer')) {
         var self = this;
         var container = self.$el;
         var layout = self.layout;
