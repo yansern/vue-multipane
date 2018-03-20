@@ -46,7 +46,15 @@ var __vue_module__ = {
       var initialPageX = ref.pageX;
       var initialPageY = ref.pageY;
 
+
       if (resizer.className && resizer.className.match('multipane-resizer')) {
+
+        // for stacked panes, make sure only the direct parent of the
+        // resizer acts
+        if (resizer.parentElement !== this.$el) {
+          return
+        }
+
         var self = this;
         var container = self.$el;
         var layout = self.layout;
@@ -105,6 +113,7 @@ var __vue_module__ = {
 
         var onMouseUp = function() {
           // Run resize one more time to set computed width/height.
+
           size =
             layout == LAYOUT_VERTICAL
               ? resize(pane.clientWidth)
