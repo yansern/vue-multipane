@@ -37,7 +37,15 @@ export default {
 
   methods: {
     onMouseDown({ target: resizer, pageX: initialPageX, pageY: initialPageY }) {
+
       if (resizer.className && resizer.className.match('multipane-resizer')) {
+
+        // for stacked panes, make sure only the direct parent of the
+        // resizer acts
+        if (resizer.parentElement !== this.$el) {
+          return
+        }
+
         let self = this;
         let { $el: container, layout } = self;
 
@@ -91,6 +99,7 @@ export default {
 
         const onMouseUp = function() {
           // Run resize one more time to set computed width/height.
+
           size =
             layout == LAYOUT_VERTICAL
               ? resize(pane.clientWidth)
