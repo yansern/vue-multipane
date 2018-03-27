@@ -23,7 +23,7 @@ $ npm install vue-multipane
 
 First, import `vue-multipane` into your Vue component.
 ```js
-import { Multipane, MultipaneResizer } from 'vue-multipane';
+import { MultiPane, MultiPaneResizer } from 'vue-multipane';
 
 export default {
   // ...
