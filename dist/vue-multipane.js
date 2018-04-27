@@ -41,12 +41,12 @@ var __vue_module__ = {
   },
 
   methods: {
-    onMouseDown: function onMouseDown(ref) {
-      var resizer = ref.target;
-      var initialPageX = ref.pageX;
-      var initialPageY = ref.pageY;
-
+    onMouseDown: function onMouseDown(e) {
+      var resizer = e.target;
       if (resizer.className && resizer.className.match('multipane-resizer')) {
+        e.preventDefault();
+        var initialPageX = e.pageX;
+        var initialPageY = e.pageY;
         var self = this;
         var container = self.$el;
         var layout = self.layout;
@@ -91,10 +91,10 @@ var __vue_module__ = {
         // Trigger paneResizeStart event
         self.$emit('paneResizeStart', pane, resizer, size);
 
-        var onMouseMove = function(ref) {
-          var pageX = ref.pageX;
-          var pageY = ref.pageY;
-
+        var onMouseMove = function(e) {
+          e.preventDefault();
+          var pageX = e.pageX;
+          var pageY = e.pageY;
           size =
             layout == LAYOUT_VERTICAL
               ? resize(initialPaneWidth, pageX - initialPageX)
@@ -115,18 +115,22 @@ var __vue_module__ = {
 
           removeEventListener('mousemove', onMouseMove);
           removeEventListener('mouseup', onMouseUp);
+          removeEventListener('touchmove', onMouseMove);
+          removeEventListener('touchend', onMouseUp);
 
           self.$emit('paneResizeStop', pane, resizer, size);
         };
 
         addEventListener('mousemove', onMouseMove);
         addEventListener('mouseup', onMouseUp);
+        addEventListener('touchmove', onMouseMove);
+        addEventListener('touchend', onMouseUp);
       }
     },
   },
 };
 
-(function(){ if(typeof document !== 'undefined'){ var head=document.head||document.getElementsByTagName('head')[0], style=document.createElement('style'), css=".multipane { display: flex; } .multipane.layout-h { flex-direction: column; } .multipane.layout-v { flex-direction: row; } .multipane > div { position: relative; z-index: 1; } .multipane-resizer { display: block; position: relative; z-index: 2; } .layout-h > .multipane-resizer { width: 100%; height: 10px; margin-top: -10px; top: 5px; cursor: row-resize; } .layout-v > .multipane-resizer { width: 10px; height: 100%; margin-left: -10px; left: 5px; cursor: col-resize; } "; style.type='text/css'; if (style.styleSheet){ style.styleSheet.cssText = css; } else { style.appendChild(document.createTextNode(css)); } head.appendChild(style); } })();
+(function(){ if(typeof document !== 'undefined'){ var head=document.head||document.getElementsByTagName('head')[0], style=document.createElement('style'), css=".multipane { display: -webkit-box; display: -ms-flexbox; display: flex; } .multipane.layout-h { -webkit-box-orient: vertical; -webkit-box-direction: normal; -ms-flex-direction: column; flex-direction: column; } .multipane.layout-v { -webkit-box-orient: horizontal; -webkit-box-direction: normal; -ms-flex-direction: row; flex-direction: row; } .multipane > div { position: relative; z-index: 1; } .multipane-resizer { display: block; position: relative; z-index: 2; } .layout-h > .multipane-resizer { width: 100%; height: 10px; margin-top: -10px; top: 5px; cursor: row-resize; } .layout-v > .multipane-resizer { width: 10px; height: 100%; margin-left: -10px; left: 5px; cursor: col-resize; } "; style.type='text/css'; if (style.styleSheet){ style.styleSheet.cssText = css; } else { style.appendChild(document.createTextNode(css)); } head.appendChild(style); } })();
 
 
 
