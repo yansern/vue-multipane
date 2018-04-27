@@ -36,8 +36,12 @@ export default {
   },
 
   methods: {
-    onMouseDown({ target: resizer, pageX: initialPageX, pageY: initialPageY }) {
+    onMouseDown(e) {
+      let resizer = e.target;
       if (resizer.className && resizer.className.match('multipane-resizer')) {
+        e.preventDefault();
+        let initialPageX = e.pageX;
+        let initialPageY = e.pageY;
         let self = this;
         let { $el: container, layout } = self;
 
@@ -80,7 +84,10 @@ export default {
         // Trigger paneResizeStart event
         self.$emit('paneResizeStart', pane, resizer, size);
 
-        const onMouseMove = function({ pageX, pageY }) {
+        const onMouseMove = function(e) {
+          e.preventDefault();
+          let pageX = e.pageX;
+          let pageY = e.pageY;
           size =
             layout == LAYOUT_VERTICAL
               ? resize(initialPaneWidth, pageX - initialPageX)
@@ -101,12 +108,16 @@ export default {
 
           removeEventListener('mousemove', onMouseMove);
           removeEventListener('mouseup', onMouseUp);
+          removeEventListener('touchmove', onMouseMove);
+          removeEventListener('touchend', onMouseUp);
 
           self.$emit('paneResizeStop', pane, resizer, size);
         };
 
         addEventListener('mousemove', onMouseMove);
         addEventListener('mouseup', onMouseUp);
+        addEventListener('touchmove', onMouseMove);
+        addEventListener('touchend', onMouseUp);
       }
     },
   },
