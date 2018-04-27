@@ -45,7 +45,12 @@ export default {
         let self = this;
         let { $el: container, layout } = self;
 
+        let reversed = Boolean(resizer.className.match('affect-follower'))
+
         let pane = resizer.previousElementSibling;
+        if (reversed) {
+          pane = resizer.nextElementSibling;
+        }
         let {
           offsetWidth: initialPaneWidth,
           offsetHeight: initialPaneHeight,
@@ -56,6 +61,9 @@ export default {
         const { addEventListener, removeEventListener } = window;
 
         const resize = (initialSize, offset = 0) => {
+          if (reversed) {
+            offset = -offset;
+          }
           if (layout == LAYOUT_VERTICAL) {
             let containerWidth = container.clientWidth;
             let paneWidth = initialSize + offset;
