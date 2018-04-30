@@ -51,7 +51,12 @@ var __vue_module__ = {
         var container = self.$el;
         var layout = self.layout;
 
+        var reversed = Boolean(resizer.className.match('affect-follower'));
+
         var pane = resizer.previousElementSibling;
+        if (reversed) {
+          pane = resizer.nextElementSibling;
+        }
         var initialPaneWidth = pane.offsetWidth;
         var initialPaneHeight = pane.offsetHeight;
 
@@ -63,6 +68,9 @@ var __vue_module__ = {
         var resize = function (initialSize, offset) {
           if ( offset === void 0 ) offset = 0;
 
+          if (reversed) {
+            offset = -offset;
+          }
           if (layout == LAYOUT_VERTICAL) {
             var containerWidth = container.clientWidth;
             var paneWidth = initialSize + offset;
@@ -183,7 +191,25 @@ var __vue_module__ = {
 
 (function(){ if(typeof document !== 'undefined'){ var head=document.head||document.getElementsByTagName('head')[0], style=document.createElement('style'), css=""; style.type='text/css'; if (style.styleSheet){ style.styleSheet.cssText = css; } else { style.appendChild(document.createTextNode(css)); } head.appendChild(style); } })();
 
-var MultipaneResizer = {render: function(){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{staticClass:"multipane-resizer"},[_vm._t("default")],2)},staticRenderFns: [],
+
+
+
+var MultipaneResizer = {render: function(){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{class:_vm.classnames},[_vm._t("default")],2)},staticRenderFns: [],
+  name: 'multipane-resizer',
+
+  props: {
+    affectFollower: {
+      type: Boolean,
+      default: false,
+    },
+  },  
+  computed: {
+    classnames: function classnames() {
+      return [
+        'multipane-resizer',
+        this.affectFollower ? 'affect-follower' : '' ];
+    },
+  }
 };
 
 if (typeof window !== 'undefined' && window.Vue) {
