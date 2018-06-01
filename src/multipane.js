@@ -38,6 +38,7 @@ export default {
   methods: {
     onMouseDown({ target: resizer, pageX: initialPageX, pageY: initialPageY }) {
       if (resizer.className && resizer.className.match('multipane-resizer')) {
+        if (resizer.parentElement !== this.$el) return;
         let self = this;
         let { $el: container, layout } = self;
 
@@ -75,26 +76,27 @@ export default {
         self.isResizing = true;
 
         // Resize once to get current computed size
-        let size = resize();
+        // let size = resize();
+        let size = (layout == LAYOUT_VERTICAL
+                    ? resize(initialPaneWidth)
+                    : resize(initialPaneHeight));
 
         // Trigger paneResizeStart event
         self.$emit('paneResizeStart', pane, resizer, size);
 
         const onMouseMove = function({ pageX, pageY }) {
-          size =
-            layout == LAYOUT_VERTICAL
+          let size = (layout == LAYOUT_VERTICAL
               ? resize(initialPaneWidth, pageX - initialPageX)
-              : resize(initialPaneHeight, pageY - initialPageY);
+              : resize(initialPaneHeight, pageY - initialPageY));
 
           self.$emit('paneResize', pane, resizer, size);
         };
 
         const onMouseUp = function() {
           // Run resize one more time to set computed width/height.
-          size =
-            layout == LAYOUT_VERTICAL
-              ? resize(pane.clientWidth)
-              : resize(pane.clientHeight);
+          let size = (layout == LAYOUT_VERTICAL
+                      ? resize(pane.clientWidth)
+                      : resize(pane.clientHeight));
 
           // This removes is-resizing class to container
           self.isResizing = false;
