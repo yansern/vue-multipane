@@ -56,7 +56,7 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
 .vertical-panes {
   width: 100%;
   height: 400px;
