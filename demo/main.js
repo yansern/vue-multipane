@@ -10764,7 +10764,7 @@ var normalizeComponent = __webpack_require__(0)
 /* script */
 var __vue_script__ = __webpack_require__(9)
 /* template */
-var __vue_template__ = __webpack_require__(38)
+var __vue_template__ = __webpack_require__(43)
 /* styles */
 var __vue_styles__ = null
 /* scopeId */
@@ -10824,7 +10824,11 @@ var _CustomResizer = __webpack_require__(28);
 
 var _CustomResizer2 = _interopRequireDefault(_CustomResizer);
 
-var _CombinedVerticalHorizontalPanes = __webpack_require__(33);
+var _FlexGrowOnTheLeft = __webpack_require__(33);
+
+var _FlexGrowOnTheLeft2 = _interopRequireDefault(_FlexGrowOnTheLeft);
+
+var _CombinedVerticalHorizontalPanes = __webpack_require__(38);
 
 var _CombinedVerticalHorizontalPanes2 = _interopRequireDefault(_CombinedVerticalHorizontalPanes);
 
@@ -10835,6 +10839,7 @@ exports.default = {
     VerticalPanes: _VerticalPanes2.default,
     HorizontalPanes: _HorizontalPanes2.default,
     CustomResizer: _CustomResizer2.default,
+    FlexGrowOnTheLeft: _FlexGrowOnTheLeft2.default,
     CombinedVerticalHorizontalPanes: _CombinedVerticalHorizontalPanes2.default
   }
 };
@@ -10856,7 +10861,7 @@ var __vue_template__ = __webpack_require__(22)
 /* styles */
 var __vue_styles__ = injectStyle
 /* scopeId */
-var __vue_scopeId__ = null
+var __vue_scopeId__ = "data-v-76eabbbe"
 /* moduleIdentifier (server only) */
 var __vue_module_identifier__ = null
 var Component = normalizeComponent(
@@ -10900,13 +10905,13 @@ var content = __webpack_require__(12);
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
-var update = __webpack_require__(2)("5088eedd", content, false);
+var update = __webpack_require__(2)("e7ff2ec0", content, false);
 // Hot Module Replacement
 if(false) {
  // When the styles change, update the <style> tags
  if(!content.locals) {
-   module.hot.accept("!!../../node_modules/css-loader/index.js!../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-76eabbbe\",\"scoped\":false,\"hasInlineConfig\":true}!../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./VerticalPanes.vue", function() {
-     var newContent = require("!!../../node_modules/css-loader/index.js!../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-76eabbbe\",\"scoped\":false,\"hasInlineConfig\":true}!../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./VerticalPanes.vue");
+   module.hot.accept("!!../../node_modules/css-loader/index.js!../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-76eabbbe\",\"scoped\":true,\"hasInlineConfig\":true}!../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./VerticalPanes.vue", function() {
+     var newContent = require("!!../../node_modules/css-loader/index.js!../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-76eabbbe\",\"scoped\":true,\"hasInlineConfig\":true}!../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./VerticalPanes.vue");
      if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
      update(newContent);
    });
@@ -10924,7 +10929,7 @@ exports = module.exports = __webpack_require__(1)(undefined);
 
 
 // module
-exports.push([module.i, "\n.vertical-panes {\n  width: 100%;\n  height: 400px;\n  border: 1px solid #ccc;\n}\n.vertical-panes > .pane {\n  text-align: left;\n  padding: 15px;\n  overflow: hidden;\n  background: #eee;\n}\n.vertical-panes > .pane ~ .pane {\n  border-left: 1px solid #ccc;\n}\n", ""]);
+exports.push([module.i, "\n.vertical-panes[data-v-76eabbbe] {\n  width: 100%;\n  height: 400px;\n  border: 1px solid #ccc;\n}\n.vertical-panes > .pane[data-v-76eabbbe] {\n  text-align: left;\n  padding: 15px;\n  overflow: hidden;\n  background: #eee;\n}\n.vertical-panes > .pane ~ .pane[data-v-76eabbbe] {\n  border-left: 1px solid #ccc;\n}\n", ""]);
 
 // exports
 
@@ -11174,8 +11179,15 @@ exports.default = {
 
 
         var pane = resizer.previousElementSibling;
-        var initialPaneWidth = pane.offsetWidth,
-            initialPaneHeight = pane.offsetHeight;
+        var previousPane = true;
+        var style = window.getComputedStyle(pane);
+        if (style.flexGrow !== "0") {
+          pane = resizer.nextElementSibling;
+          previousPane = false;
+        }
+        var _pane = pane,
+            initialPaneWidth = _pane.offsetWidth,
+            initialPaneHeight = _pane.offsetHeight;
 
 
         var usePercentage = !!(pane.style.width + '').match('%');
@@ -11190,14 +11202,14 @@ exports.default = {
 
           if (layout == LAYOUT_VERTICAL) {
             var containerWidth = container.clientWidth;
-            var paneWidth = initialSize + offset;
+            var paneWidth = initialSize + (previousPane ? offset : -offset);
 
             return pane.style.width = usePercentage ? paneWidth / containerWidth * 100 + '%' : paneWidth + 'px';
           }
 
           if (layout == LAYOUT_HORIZONTAL) {
             var containerHeight = container.clientHeight;
-            var paneHeight = initialSize + offset;
+            var paneHeight = initialSize + (previousPane ? offset : -offset);
 
             return pane.style.height = usePercentage ? paneHeight / containerHeight * 100 + '%' : paneHeight + 'px';
           }
@@ -11453,7 +11465,7 @@ var __vue_template__ = __webpack_require__(27)
 /* styles */
 var __vue_styles__ = injectStyle
 /* scopeId */
-var __vue_scopeId__ = null
+var __vue_scopeId__ = "data-v-2992bc33"
 /* moduleIdentifier (server only) */
 var __vue_module_identifier__ = null
 var Component = normalizeComponent(
@@ -11497,13 +11509,13 @@ var content = __webpack_require__(25);
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
-var update = __webpack_require__(2)("1e752d0e", content, false);
+var update = __webpack_require__(2)("8ebb28aa", content, false);
 // Hot Module Replacement
 if(false) {
  // When the styles change, update the <style> tags
  if(!content.locals) {
-   module.hot.accept("!!../../node_modules/css-loader/index.js!../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-2992bc33\",\"scoped\":false,\"hasInlineConfig\":true}!../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./HorizontalPanes.vue", function() {
-     var newContent = require("!!../../node_modules/css-loader/index.js!../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-2992bc33\",\"scoped\":false,\"hasInlineConfig\":true}!../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./HorizontalPanes.vue");
+   module.hot.accept("!!../../node_modules/css-loader/index.js!../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-2992bc33\",\"scoped\":true,\"hasInlineConfig\":true}!../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./HorizontalPanes.vue", function() {
+     var newContent = require("!!../../node_modules/css-loader/index.js!../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-2992bc33\",\"scoped\":true,\"hasInlineConfig\":true}!../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./HorizontalPanes.vue");
      if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
      update(newContent);
    });
@@ -11521,7 +11533,7 @@ exports = module.exports = __webpack_require__(1)(undefined);
 
 
 // module
-exports.push([module.i, "\n.horizontal-panes {\n  width: 100%;\n  height: 600px;\n  border: 1px solid #ccc;\n}\n.horizontal-panes > .pane {\n  text-align: left;\n  padding: 15px;\n  overflow: hidden;\n  background: #eee;\n}\n.horizontal-panes > .pane ~ .pane {\n  border-top: 1px solid #ccc;\n}\n", ""]);
+exports.push([module.i, "\n.horizontal-panes[data-v-2992bc33] {\n  width: 100%;\n  height: 600px;\n  border: 1px solid #ccc;\n}\n.horizontal-panes > .pane[data-v-2992bc33] {\n  text-align: left;\n  padding: 15px;\n  overflow: hidden;\n  background: #eee;\n}\n.horizontal-panes > .pane ~ .pane[data-v-2992bc33] {\n  border-top: 1px solid #ccc;\n}\n", ""]);
 
 // exports
 
@@ -11712,7 +11724,7 @@ var __vue_template__ = __webpack_require__(32)
 /* styles */
 var __vue_styles__ = injectStyle
 /* scopeId */
-var __vue_scopeId__ = null
+var __vue_scopeId__ = "data-v-92b8810e"
 /* moduleIdentifier (server only) */
 var __vue_module_identifier__ = null
 var Component = normalizeComponent(
@@ -11756,13 +11768,13 @@ var content = __webpack_require__(30);
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
-var update = __webpack_require__(2)("6e9b971d", content, false);
+var update = __webpack_require__(2)("185fa998", content, false);
 // Hot Module Replacement
 if(false) {
  // When the styles change, update the <style> tags
  if(!content.locals) {
-   module.hot.accept("!!../../node_modules/css-loader/index.js!../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-92b8810e\",\"scoped\":false,\"hasInlineConfig\":true}!../../node_modules/sass-loader/lib/loader.js!../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./CustomResizer.vue", function() {
-     var newContent = require("!!../../node_modules/css-loader/index.js!../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-92b8810e\",\"scoped\":false,\"hasInlineConfig\":true}!../../node_modules/sass-loader/lib/loader.js!../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./CustomResizer.vue");
+   module.hot.accept("!!../../node_modules/css-loader/index.js!../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-92b8810e\",\"scoped\":true,\"hasInlineConfig\":true}!../../node_modules/sass-loader/lib/loader.js!../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./CustomResizer.vue", function() {
+     var newContent = require("!!../../node_modules/css-loader/index.js!../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-92b8810e\",\"scoped\":true,\"hasInlineConfig\":true}!../../node_modules/sass-loader/lib/loader.js!../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./CustomResizer.vue");
      if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
      update(newContent);
    });
@@ -11780,7 +11792,7 @@ exports = module.exports = __webpack_require__(1)(undefined);
 
 
 // module
-exports.push([module.i, "\n.custom-resizer {\n  width: 100%;\n  height: 400px;\n}\n.custom-resizer > .pane {\n  text-align: left;\n  padding: 15px;\n  overflow: hidden;\n  background: #eee;\n  border: 1px solid #ccc;\n}\n.custom-resizer > .multipane-resizer {\n  margin: 0;\n  left: 0;\n  position: relative;\n}\n.custom-resizer > .multipane-resizer:before {\n    display: block;\n    content: \"\";\n    width: 3px;\n    height: 40px;\n    position: absolute;\n    top: 50%;\n    left: 50%;\n    margin-top: -20px;\n    margin-left: -1.5px;\n    border-left: 1px solid #ccc;\n    border-right: 1px solid #ccc;\n}\n.custom-resizer > .multipane-resizer:hover:before {\n    border-color: #999;\n}\n", ""]);
+exports.push([module.i, "\n.custom-resizer[data-v-92b8810e] {\n  width: 100%;\n  height: 400px;\n}\n.custom-resizer > .pane[data-v-92b8810e] {\n  text-align: left;\n  padding: 15px;\n  overflow: hidden;\n  background: #eee;\n  border: 1px solid #ccc;\n}\n.custom-resizer > .multipane-resizer[data-v-92b8810e] {\n  margin: 0;\n  left: 0;\n  position: relative;\n}\n.custom-resizer > .multipane-resizer[data-v-92b8810e]:before {\n    display: block;\n    content: \"\";\n    width: 3px;\n    height: 40px;\n    position: absolute;\n    top: 50%;\n    left: 50%;\n    margin-top: -20px;\n    margin-left: -1.5px;\n    border-left: 1px solid #ccc;\n    border-right: 1px solid #ccc;\n}\n.custom-resizer > .multipane-resizer[data-v-92b8810e]:hover:before {\n    border-color: #999;\n}\n", ""]);
 
 // exports
 
@@ -11884,7 +11896,7 @@ var __vue_template__ = __webpack_require__(37)
 /* styles */
 var __vue_styles__ = injectStyle
 /* scopeId */
-var __vue_scopeId__ = null
+var __vue_scopeId__ = "data-v-500dead9"
 /* moduleIdentifier (server only) */
 var __vue_module_identifier__ = null
 var Component = normalizeComponent(
@@ -11894,9 +11906,9 @@ var Component = normalizeComponent(
   __vue_scopeId__,
   __vue_module_identifier__
 )
-Component.options.__file = "demo/src/CombinedVerticalHorizontalPanes.vue"
+Component.options.__file = "demo/src/FlexGrowOnTheLeft.vue"
 if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key.substr(0, 2) !== "__"})) {console.error("named exports are not supported in *.vue files.")}
-if (Component.options.functional) {console.error("[vue-loader] CombinedVerticalHorizontalPanes.vue: functional components are not supported with templates, they should use render functions.")}
+if (Component.options.functional) {console.error("[vue-loader] FlexGrowOnTheLeft.vue: functional components are not supported with templates, they should use render functions.")}
 
 /* hot reload */
 if (false) {(function () {
@@ -11905,9 +11917,9 @@ if (false) {(function () {
   if (!hotAPI.compatible) return
   module.hot.accept()
   if (!module.hot.data) {
-    hotAPI.createRecord("data-v-5730e698", Component.options)
+    hotAPI.createRecord("data-v-500dead9", Component.options)
   } else {
-    hotAPI.reload("data-v-5730e698", Component.options)
+    hotAPI.reload("data-v-500dead9", Component.options)
   }
   module.hot.dispose(function (data) {
     disposed = true
@@ -11928,13 +11940,13 @@ var content = __webpack_require__(35);
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
-var update = __webpack_require__(2)("2bb7c517", content, false);
+var update = __webpack_require__(2)("95505134", content, false);
 // Hot Module Replacement
 if(false) {
  // When the styles change, update the <style> tags
  if(!content.locals) {
-   module.hot.accept("!!../../node_modules/css-loader/index.js!../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-5730e698\",\"scoped\":false,\"hasInlineConfig\":true}!../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./CombinedVerticalHorizontalPanes.vue", function() {
-     var newContent = require("!!../../node_modules/css-loader/index.js!../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-5730e698\",\"scoped\":false,\"hasInlineConfig\":true}!../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./CombinedVerticalHorizontalPanes.vue");
+   module.hot.accept("!!../../node_modules/css-loader/index.js!../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-500dead9\",\"scoped\":true,\"hasInlineConfig\":true}!../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./FlexGrowOnTheLeft.vue", function() {
+     var newContent = require("!!../../node_modules/css-loader/index.js!../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-500dead9\",\"scoped\":true,\"hasInlineConfig\":true}!../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./FlexGrowOnTheLeft.vue");
      if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
      update(newContent);
    });
@@ -11952,7 +11964,7 @@ exports = module.exports = __webpack_require__(1)(undefined);
 
 
 // module
-exports.push([module.i, "\n.container {\n  height: 600px;\n  width: 100%;\n}\n.left {\n  width: 50%;\n  min-width: 20%;\n  max-width: 80%;\n  height: 600px;\n  border: 1px solid #ccc;\n  background: #eee;\n}\n.right {\n  flex-grow: 1;\n  height: 600px;\n  border: 1px solid #ccc;\n  background: #eee;\n}\n.top {\n  height: 300px;\n  min-height: 20%;\n  max-height: 80%;\n  width: 100%;\n  border: 1px solid #ccc;\n  background: #eee;\n}\n.bottom {\n  flex-grow: 1;\n  width: 100%;\n  border: 1px solid #ccc;\n  background: #eee;\n}\n", ""]);
+exports.push([module.i, "\n.container[data-v-500dead9] {\n  height: 600px;\n  width: 100%;\n}\n.left[data-v-500dead9] {\n  flex-grow: 1;\n  height: 600px;\n  border: 1px solid #ccc;\n  background: #eee;\n}\n.right[data-v-500dead9] {\n  width: 400px;\n  min-width: 100px;\n  max-width: 800px;\n  height: 600px;\n  border: 1px solid #ccc;\n  background: #eee;\n}\n", ""]);
 
 // exports
 
@@ -11993,9 +12005,209 @@ exports.default = {
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /***/ }),
 /* 37 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c(
+    "multipane",
+    { staticClass: "container", attrs: { layout: "vertical" } },
+    [
+      _c("div", { staticClass: "left" }, [
+        _c("h6", { staticClass: "title is-6" }, [_vm._v("Pane 1")]),
+        _vm._v(" "),
+        _c("p", { staticClass: "subtitle is-6" }, [
+          _vm._v("Takes remaining available space.")
+        ]),
+        _vm._v(" "),
+        _c("p", [
+          _c("small", [
+            _c("strong", [_vm._v("Configured with:")]),
+            _c("br"),
+            _vm._v("\n            flex-grow: 1"),
+            _c("br")
+          ])
+        ])
+      ]),
+      _vm._v(" "),
+      _c("multipane-resizer"),
+      _vm._v(" "),
+      _c("div", { staticClass: "right" }, [
+        _c("h6", { staticClass: "title is-6" }, [_vm._v("Pane 2")]),
+        _vm._v(" "),
+        _c("p", { staticClass: "subtitle is-6" }, [_vm._v("Fluid width.")]),
+        _vm._v(" "),
+        _c("p", [
+          _c("small", [
+            _c("strong", [_vm._v("Configured with:")]),
+            _c("br"),
+            _vm._v("\n           width: 400px;"),
+            _c("br"),
+            _vm._v("\n          min-width: 100px;"),
+            _c("br"),
+            _vm._v("\n          max-width: 800px;"),
+            _c("br")
+          ])
+        ])
+      ])
+    ],
+    1
+  )
+}
+var staticRenderFns = []
+render._withStripped = true
+module.exports = { render: render, staticRenderFns: staticRenderFns }
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+     require("vue-hot-reload-api").rerender("data-v-500dead9", module.exports)
+  }
+}
+
+/***/ }),
+/* 38 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var disposed = false
+function injectStyle (ssrContext) {
+  if (disposed) return
+  __webpack_require__(39)
+}
+var normalizeComponent = __webpack_require__(0)
+/* script */
+var __vue_script__ = __webpack_require__(41)
+/* template */
+var __vue_template__ = __webpack_require__(42)
+/* styles */
+var __vue_styles__ = injectStyle
+/* scopeId */
+var __vue_scopeId__ = "data-v-5730e698"
+/* moduleIdentifier (server only) */
+var __vue_module_identifier__ = null
+var Component = normalizeComponent(
+  __vue_script__,
+  __vue_template__,
+  __vue_styles__,
+  __vue_scopeId__,
+  __vue_module_identifier__
+)
+Component.options.__file = "demo/src/CombinedVerticalHorizontalPanes.vue"
+if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key.substr(0, 2) !== "__"})) {console.error("named exports are not supported in *.vue files.")}
+if (Component.options.functional) {console.error("[vue-loader] CombinedVerticalHorizontalPanes.vue: functional components are not supported with templates, they should use render functions.")}
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-5730e698", Component.options)
+  } else {
+    hotAPI.reload("data-v-5730e698", Component.options)
+  }
+  module.hot.dispose(function (data) {
+    disposed = true
+  })
+})()}
+
+module.exports = Component.exports
+
+
+/***/ }),
+/* 39 */
+/***/ (function(module, exports, __webpack_require__) {
+
+// style-loader: Adds some css to the DOM by adding a <style> tag
+
+// load the styles
+var content = __webpack_require__(40);
+if(typeof content === 'string') content = [[module.i, content, '']];
+if(content.locals) module.exports = content.locals;
+// add the styles to the DOM
+var update = __webpack_require__(2)("eac05f50", content, false);
+// Hot Module Replacement
+if(false) {
+ // When the styles change, update the <style> tags
+ if(!content.locals) {
+   module.hot.accept("!!../../node_modules/css-loader/index.js!../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-5730e698\",\"scoped\":true,\"hasInlineConfig\":true}!../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./CombinedVerticalHorizontalPanes.vue", function() {
+     var newContent = require("!!../../node_modules/css-loader/index.js!../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-5730e698\",\"scoped\":true,\"hasInlineConfig\":true}!../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./CombinedVerticalHorizontalPanes.vue");
+     if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
+     update(newContent);
+   });
+ }
+ // When the module is disposed, remove the <style> tags
+ module.hot.dispose(function() { update(); });
+}
+
+/***/ }),
+/* 40 */
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__(1)(undefined);
+// imports
+
+
+// module
+exports.push([module.i, "\n.container[data-v-5730e698] {\n  height: 600px;\n  width: 100%;\n}\n.left[data-v-5730e698] {\n  width: 50%;\n  min-width: 20%;\n  max-width: 80%;\n  height: 600px;\n  border: 1px solid #ccc;\n  background: #eee;\n}\n.right[data-v-5730e698] {\n  flex-grow: 1;\n  height: 600px;\n  border: 1px solid #ccc;\n  background: #eee;\n}\n.top[data-v-5730e698] {\n  flex-grow: 1;\n  width: 100%;\n  border: 1px solid #ccc;\n  background: #eee;\n}\n.bottom[data-v-5730e698] {\n  height: 300px;\n  min-height: 20%;\n  max-height: 80%;\n  width: 100%;\n  border: 1px solid #ccc;\n  background: #eee;\n}\n", ""]);
+
+// exports
+
+
+/***/ }),
+/* 41 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _src = __webpack_require__(3);
+
+exports.default = {
+  components: {
+    Multipane: _src.Multipane,
+    MultipaneResizer: _src.MultipaneResizer
+  }
+}; //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+/***/ }),
+/* 42 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var render = function() {
@@ -12043,7 +12255,7 @@ if (false) {
 }
 
 /***/ }),
-/* 38 */
+/* 43 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var render = function() {
@@ -12082,7 +12294,16 @@ var render = function() {
       _c(
         "div",
         { staticClass: "hero-body" },
-        [_vm._m(3), _vm._v(" "), _c("CombinedVerticalHorizontalPanes")],
+        [_vm._m(3), _vm._v(" "), _c("FlexGrowOnTheLeft")],
+        1
+      )
+    ]),
+    _vm._v(" "),
+    _c("section", { staticClass: "hero" }, [
+      _c(
+        "div",
+        { staticClass: "hero-body" },
+        [_vm._m(4), _vm._v(" "), _c("CombinedVerticalHorizontalPanes")],
         1
       )
     ])
@@ -12154,6 +12375,30 @@ var staticRenderFns = [
             attrs: {
               href:
                 "https://github.com/yansern/vue-multipane/blob/master/demo/src/CustomResizer.vue"
+            }
+          },
+          [_vm._v("View code »")]
+        )
+      ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "columns" }, [
+      _c("div", { staticClass: "column" }, [
+        _c("h2", { staticClass: "title" }, [_vm._v("Flex Grow on the Left")])
+      ]),
+      _vm._v(" "),
+      _c("div", { staticClass: "column is-narrow" }, [
+        _c(
+          "a",
+          {
+            staticClass: "button is-warning",
+            attrs: {
+              href:
+                "https://github.com/yansern/vue-multipane/blob/master/demo/src/FlexGrowOnTheLeft.vue"
             }
           },
           [_vm._v("View code »")]

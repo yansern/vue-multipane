@@ -53,6 +53,12 @@ var __vue_module__ = {
         var layout = self.layout;
 
         var pane = resizer.previousElementSibling;
+        var previousPane = true;
+        var style = window.getComputedStyle(pane);
+        if (style.flexGrow !== "0") {
+          pane = resizer.nextElementSibling;
+          previousPane = false;
+        }
         var initialPaneWidth = pane.offsetWidth;
         var initialPaneHeight = pane.offsetHeight;
 
@@ -66,7 +72,7 @@ var __vue_module__ = {
 
           if (layout == LAYOUT_VERTICAL) {
             var containerWidth = container.clientWidth;
-            var paneWidth = initialSize + offset;
+            var paneWidth = initialSize + (previousPane ? offset : -offset);
 
             return (pane.style.width = usePercentage
               ? paneWidth / containerWidth * 100 + '%'
@@ -75,7 +81,7 @@ var __vue_module__ = {
 
           if (layout == LAYOUT_HORIZONTAL) {
             var containerHeight = container.clientHeight;
-            var paneHeight = initialSize + offset;
+            var paneHeight = initialSize + (previousPane ? offset : -offset);
 
             return (pane.style.height = usePercentage
               ? paneHeight / containerHeight * 100 + '%'

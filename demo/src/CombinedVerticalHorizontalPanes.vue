@@ -27,7 +27,7 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
 .container {
   height: 600px;
   width: 100%;
@@ -50,15 +50,15 @@ export default {
 }
 
 .top {
-  height: 300px;
-  min-height: 20%;
-  max-height: 80%;
+  flex-grow: 1;
   width: 100%;
   border: 1px solid #ccc;
   background: #eee;
 }
 .bottom {
-  flex-grow: 1;
+  height: 300px;
+  min-height: 20%;
+  max-height: 80%;
   width: 100%;
   border: 1px solid #ccc;
   background: #eee;

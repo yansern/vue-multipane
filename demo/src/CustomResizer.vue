@@ -31,7 +31,7 @@ export default {
 };
 </script>
 
-<style lang="scss">
+<style scoped lang="scss">
 .custom-resizer {
   width: 100%;
   height: 400px;
