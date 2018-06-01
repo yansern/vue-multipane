@@ -37,7 +37,10 @@ export default {
 
   methods: {
     onMouseDown({ target: resizer, pageX: initialPageX, pageY: initialPageY }) {
+      console.log(`onMouseDown(${resizer}, ${initialPageX}, ${initialPageY})`);
       if (resizer.className && resizer.className.match('multipane-resizer')) {
+        if (resizer.parentElement !== this.$el) return;
+        console.dir(this);
         let self = this;
         let { $el: container, layout } = self;
 
@@ -52,6 +55,7 @@ export default {
         const { addEventListener, removeEventListener } = window;
 
         const resize = (initialSize, offset = 0) => {
+          console.log(`resize (${initialSize}, ${offset})`);
           if (layout == LAYOUT_VERTICAL) {
             let containerWidth = container.clientWidth;
             let paneWidth = initialSize + offset;
@@ -75,26 +79,30 @@ export default {
         self.isResizing = true;
 
         // Resize once to get current computed size
-        let size = resize();
+        // let size = resize();
+        let size = (layout == LAYOUT_VERTICAL
+                    ? resize(initialPaneWidth)
+                    : resize(initialPaneHeight));
+        console.log(`size = ${size}`);
 
         // Trigger paneResizeStart event
         self.$emit('paneResizeStart', pane, resizer, size);
 
         const onMouseMove = function({ pageX, pageY }) {
-          size =
-            layout == LAYOUT_VERTICAL
+          console.log(`onMouseMove (${pageX}, ${pageY})`);
+          let size = (layout == LAYOUT_VERTICAL
               ? resize(initialPaneWidth, pageX - initialPageX)
-              : resize(initialPaneHeight, pageY - initialPageY);
+              : resize(initialPaneHeight, pageY - initialPageY));
 
           self.$emit('paneResize', pane, resizer, size);
         };
 
         const onMouseUp = function() {
+          console.log('onMouseUp');
           // Run resize one more time to set computed width/height.
-          size =
-            layout == LAYOUT_VERTICAL
-              ? resize(pane.clientWidth)
-              : resize(pane.clientHeight);
+          let size = (layout == LAYOUT_VERTICAL
+                      ? resize(pane.clientWidth)
+                      : resize(pane.clientHeight));
 
           // This removes is-resizing class to container
           self.isResizing = false;

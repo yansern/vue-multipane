@@ -11,7 +11,7 @@
     "build:prod": "cross-env rollup -c rollup.config.prod.js",
     "build:dev": "cross-env rollup -c rollup.config.dev.js",
     "build:esm": "cross-env rollup -c rollup.config.esm.js",
-    "build:demo": "cross-env NODE_ENV=production webpack --progress --hide-modules --env.entry=demo --config=node_modules/laravel-mix/setup/webpack.config.js",
+    "build:demo": "cross-env NODE_ENV=development webpack --progress --hide-modules --env.entry=demo --config=node_modules/laravel-mix/setup/webpack.config.js",
     "dev": "cross-env NODE_ENV=development webpack-dev-server --hot --inline --env.entry=demo --config=node_modules/laravel-mix/setup/webpack.config.js"
   },
   "license": "MIT",
