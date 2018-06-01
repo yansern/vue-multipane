@@ -11166,10 +11166,8 @@ exports.default = {
           initialPageX = _ref.pageX,
           initialPageY = _ref.pageY;
 
-      console.log('onMouseDown(' + resizer + ', ' + initialPageX + ', ' + initialPageY + ')');
       if (resizer.className && resizer.className.match('multipane-resizer')) {
         if (resizer.parentElement !== this.$el) return;
-        console.dir(this);
         var self = this;
         var container = self.$el,
             layout = self.layout;
@@ -11190,7 +11188,6 @@ exports.default = {
         var resize = function resize(initialSize) {
           var offset = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 0;
 
-          console.log('resize (' + initialSize + ', ' + offset + ')');
           if (layout == LAYOUT_VERTICAL) {
             var containerWidth = container.clientWidth;
             var paneWidth = initialSize + offset;
@@ -11212,7 +11209,6 @@ exports.default = {
         // Resize once to get current computed size
         // let size = resize();
         var size = layout == LAYOUT_VERTICAL ? resize(initialPaneWidth) : resize(initialPaneHeight);
-        console.log('size = ' + size);
 
         // Trigger paneResizeStart event
         self.$emit('paneResizeStart', pane, resizer, size);
@@ -11221,14 +11217,12 @@ exports.default = {
           var pageX = _ref2.pageX,
               pageY = _ref2.pageY;
 
-          console.log('onMouseMove (' + pageX + ', ' + pageY + ')');
           var size = layout == LAYOUT_VERTICAL ? resize(initialPaneWidth, pageX - initialPageX) : resize(initialPaneHeight, pageY - initialPageY);
 
           self.$emit('paneResize', pane, resizer, size);
         };
 
         var onMouseUp = function onMouseUp() {
-          console.log('onMouseUp');
           // Run resize one more time to set computed width/height.
           var size = layout == LAYOUT_VERTICAL ? resize(pane.clientWidth) : resize(pane.clientHeight);
 

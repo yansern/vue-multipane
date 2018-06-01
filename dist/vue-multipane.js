@@ -46,10 +46,8 @@ var __vue_module__ = {
       var initialPageX = ref.pageX;
       var initialPageY = ref.pageY;
 
-      console.log(("onMouseDown(" + resizer + ", " + initialPageX + ", " + initialPageY + ")"));
       if (resizer.className && resizer.className.match('multipane-resizer')) {
         if (resizer.parentElement !== this.$el) { return; }
-        console.dir(this);
         var self = this;
         var container = self.$el;
         var layout = self.layout;
@@ -66,7 +64,6 @@ var __vue_module__ = {
         var resize = function (initialSize, offset) {
           if ( offset === void 0 ) offset = 0;
 
-          console.log(("resize (" + initialSize + ", " + offset + ")"));
           if (layout == LAYOUT_VERTICAL) {
             var containerWidth = container.clientWidth;
             var paneWidth = initialSize + offset;
@@ -94,7 +91,6 @@ var __vue_module__ = {
         var size = (layout == LAYOUT_VERTICAL
                     ? resize(initialPaneWidth)
                     : resize(initialPaneHeight));
-        console.log(("size = " + size));
 
         // Trigger paneResizeStart event
         self.$emit('paneResizeStart', pane, resizer, size);
@@ -103,7 +99,6 @@ var __vue_module__ = {
           var pageX = ref.pageX;
           var pageY = ref.pageY;
 
-          console.log(("onMouseMove (" + pageX + ", " + pageY + ")"));
           var size = (layout == LAYOUT_VERTICAL
               ? resize(initialPaneWidth, pageX - initialPageX)
               : resize(initialPaneHeight, pageY - initialPageY));
@@ -112,7 +107,6 @@ var __vue_module__ = {
         };
 
         var onMouseUp = function() {
-          console.log('onMouseUp');
           // Run resize one more time to set computed width/height.
           var size = (layout == LAYOUT_VERTICAL
                       ? resize(pane.clientWidth)
