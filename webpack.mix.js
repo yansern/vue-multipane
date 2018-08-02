@@ -47,8 +47,8 @@ if (argv.env.entry=='demo') {
   if (mix.inDevelopment()) {
 
     // Dev Server
-    const port = 8012;
-    const publicPath = `http://localhost:${port}/`;
+    const port = 8080;
+    const publicPath = `http://0.0.0.0:${port}/`;
 
     mix.options({
       webpackConfig: {
@@ -57,8 +57,9 @@ if (argv.env.entry=='demo') {
         },
         devServer: {
           port: port,
+          host: '0.0.0.0',
           publicPath: publicPath,
-          public: `localhost:${port}`,
+          public: `0.0.0.0:${port}`,
           contentBase: './demo/',
           noInfo: false,
           quiet: false,
