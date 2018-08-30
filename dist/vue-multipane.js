@@ -45,8 +45,14 @@ var __vue_module__ = {
       var resizer = e.target;
       if (resizer.className && typeof resizer.className === 'string' && resizer.className.match('multipane-resizer')) {
         e.preventDefault();
-        var initialPageX = e.pageX;
-        var initialPageY = e.pageY;
+        var initialPageX, initialPageY;
+        if (e.type == "touchstart") {
+          initialPageX = e.touches[0].pageX;
+          initialPageY = e.touches[0].pageY;
+        } else {
+          initialPageX = e.pageX;
+          initialPageY = e.pageY;
+        }
         var self = this;
         var container = self.$el;
         var layout = self.layout;
@@ -100,9 +106,15 @@ var __vue_module__ = {
         self.$emit('paneResizeStart', pane, resizer, size);
 
         var onMouseMove = function(e) {
-          e.preventDefault();
-          var pageX = e.pageX;
-          var pageY = e.pageY;
+          var pageX, pageY;
+          if (e.type == "touchmove") {
+            pageX = e.touches[0].pageX;
+            pageY = e.touches[0].pageY;
+          } else {
+            e.preventDefault();
+            pageX = e.pageX;
+            pageY = e.pageY;
+          }
           size =
             layout == LAYOUT_VERTICAL
               ? resize(initialPaneWidth, pageX - initialPageX)

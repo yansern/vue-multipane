@@ -40,8 +40,14 @@ export default {
       let resizer = e.target;
       if (resizer.className && typeof resizer.className === 'string' && resizer.className.match('multipane-resizer')) {
         e.preventDefault();
-        let initialPageX = e.pageX;
-        let initialPageY = e.pageY;
+        let initialPageX, initialPageY
+        if (e.type == "touchstart") {
+          initialPageX = e.touches[0].pageX;
+          initialPageY = e.touches[0].pageY;
+        } else {
+          initialPageX = e.pageX;
+          initialPageY = e.pageY;
+        }
         let self = this;
         let { $el: container, layout } = self;
 
@@ -93,9 +99,15 @@ export default {
         self.$emit('paneResizeStart', pane, resizer, size);
 
         const onMouseMove = function(e) {
-          e.preventDefault();
-          let pageX = e.pageX;
-          let pageY = e.pageY;
+          let pageX, pageY;
+          if (e.type == "touchmove") {
+            pageX = e.touches[0].pageX;
+            pageY = e.touches[0].pageY;
+          } else {
+            e.preventDefault();
+            pageX = e.pageX;
+            pageY = e.pageY;
+          }
           size =
             layout == LAYOUT_VERTICAL
               ? resize(initialPaneWidth, pageX - initialPageX)
