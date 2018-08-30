@@ -57,5 +57,8 @@
   },
   "engines": {
     "node": ">=6.0.0"
+  },
+  "dependencies": {
+    "yarn": "^1.6.0"
   }
 }

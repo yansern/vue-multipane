@@ -36,12 +36,27 @@ export default {
   },
 
   methods: {
-    onMouseDown({ target: resizer, pageX: initialPageX, pageY: initialPageY }) {
-      if (resizer.className && resizer.className.match('multipane-resizer')) {
+    onMouseDown(e) {
+      let resizer = e.target;
+      if (resizer.className && typeof resizer.className === 'string' && resizer.className.match('multipane-resizer')) {
+        e.preventDefault();
+        let initialPageX, initialPageY
+        if (e.type == "touchstart") {
+          initialPageX = e.touches[0].pageX;
+          initialPageY = e.touches[0].pageY;
+        } else {
+          initialPageX = e.pageX;
+          initialPageY = e.pageY;
+        }
         let self = this;
         let { $el: container, layout } = self;
 
+        let reversed = Boolean(resizer.className.match('affect-follower'))
+
         let pane = resizer.previousElementSibling;
+        if (reversed) {
+          pane = resizer.nextElementSibling;
+        }
         let {
           offsetWidth: initialPaneWidth,
           offsetHeight: initialPaneHeight,
@@ -52,6 +67,9 @@ export default {
         const { addEventListener, removeEventListener } = window;
 
         const resize = (initialSize, offset = 0) => {
+          if (reversed) {
+            offset = -offset;
+          }
           if (layout == LAYOUT_VERTICAL) {
             let containerWidth = container.clientWidth;
             let paneWidth = initialSize + offset;
@@ -80,7 +98,16 @@ export default {
         // Trigger paneResizeStart event
         self.$emit('paneResizeStart', pane, resizer, size);
 
-        const onMouseMove = function({ pageX, pageY }) {
+        const onMouseMove = function(e) {
+          let pageX, pageY;
+          if (e.type == "touchmove") {
+            pageX = e.touches[0].pageX;
+            pageY = e.touches[0].pageY;
+          } else {
+            e.preventDefault();
+            pageX = e.pageX;
+            pageY = e.pageY;
+          }
           size =
             layout == LAYOUT_VERTICAL
               ? resize(initialPaneWidth, pageX - initialPageX)
@@ -101,12 +128,16 @@ export default {
 
           removeEventListener('mousemove', onMouseMove);
           removeEventListener('mouseup', onMouseUp);
+          removeEventListener('touchmove', onMouseMove);
+          removeEventListener('touchend', onMouseUp);
 
           self.$emit('paneResizeStop', pane, resizer, size);
         };
 
         addEventListener('mousemove', onMouseMove);
         addEventListener('mouseup', onMouseUp);
+        addEventListener('touchmove', onMouseMove);
+        addEventListener('touchend', onMouseUp);
       }
     },
   },

@@ -41,17 +41,28 @@ var __vue_module__ = {
   },
 
   methods: {
-    onMouseDown: function onMouseDown(ref) {
-      var resizer = ref.target;
-      var initialPageX = ref.pageX;
-      var initialPageY = ref.pageY;
-
-      if (resizer.className && resizer.className.match('multipane-resizer')) {
+    onMouseDown: function onMouseDown(e) {
+      var resizer = e.target;
+      if (resizer.className && typeof resizer.className === 'string' && resizer.className.match('multipane-resizer')) {
+        e.preventDefault();
+        var initialPageX, initialPageY;
+        if (e.type == "touchstart") {
+          initialPageX = e.touches[0].pageX;
+          initialPageY = e.touches[0].pageY;
+        } else {
+          initialPageX = e.pageX;
+          initialPageY = e.pageY;
+        }
         var self = this;
         var container = self.$el;
         var layout = self.layout;
 
+        var reversed = Boolean(resizer.className.match('affect-follower'));
+
         var pane = resizer.previousElementSibling;
+        if (reversed) {
+          pane = resizer.nextElementSibling;
+        }
         var initialPaneWidth = pane.offsetWidth;
         var initialPaneHeight = pane.offsetHeight;
 
@@ -63,6 +74,9 @@ var __vue_module__ = {
         var resize = function (initialSize, offset) {
           if ( offset === void 0 ) offset = 0;
 
+          if (reversed) {
+            offset = -offset;
+          }
           if (layout == LAYOUT_VERTICAL) {
             var containerWidth = container.clientWidth;
             var paneWidth = initialSize + offset;
@@ -91,10 +105,16 @@ var __vue_module__ = {
         // Trigger paneResizeStart event
         self.$emit('paneResizeStart', pane, resizer, size);
 
-        var onMouseMove = function(ref) {
-          var pageX = ref.pageX;
-          var pageY = ref.pageY;
-
+        var onMouseMove = function(e) {
+          var pageX, pageY;
+          if (e.type == "touchmove") {
+            pageX = e.touches[0].pageX;
+            pageY = e.touches[0].pageY;
+          } else {
+            e.preventDefault();
+            pageX = e.pageX;
+            pageY = e.pageY;
+          }
           size =
             layout == LAYOUT_VERTICAL
               ? resize(initialPaneWidth, pageX - initialPageX)
@@ -115,12 +135,16 @@ var __vue_module__ = {
 
           removeEventListener('mousemove', onMouseMove);
           removeEventListener('mouseup', onMouseUp);
+          removeEventListener('touchmove', onMouseMove);
+          removeEventListener('touchend', onMouseUp);
 
           self.$emit('paneResizeStop', pane, resizer, size);
         };
 
         addEventListener('mousemove', onMouseMove);
         addEventListener('mouseup', onMouseUp);
+        addEventListener('touchmove', onMouseMove);
+        addEventListener('touchend', onMouseUp);
       }
     },
   },
@@ -174,12 +198,30 @@ var __vue_module__ = {
 
 
 
-    var __$__vue_module__ = Object.assign(__vue_module__, {render: function(){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{class:_vm.classnames,style:({ cursor: _vm.cursor, userSelect: _vm.userSelect }),on:{"mousedown":_vm.onMouseDown}},[_vm._t("default")],2)},staticRenderFns: [],});
+    var __$__vue_module__ = Object.assign(__vue_module__, {render: function(){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{class:_vm.classnames,style:({ cursor: _vm.cursor, userSelect: _vm.userSelect }),on:{"mousedown":_vm.onMouseDown,"touchstart":_vm.onMouseDown}},[_vm._t("default")],2)},staticRenderFns: [],});
     __$__vue_module__.prototype = __vue_module__.prototype;
 
 (function(){ if(typeof document !== 'undefined'){ var head=document.head||document.getElementsByTagName('head')[0], style=document.createElement('style'), css=""; style.type='text/css'; if (style.styleSheet){ style.styleSheet.cssText = css; } else { style.appendChild(document.createTextNode(css)); } head.appendChild(style); } })();
 
-var MultipaneResizer = {render: function(){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{staticClass:"multipane-resizer"},[_vm._t("default")],2)},staticRenderFns: [],
+
+
+
+var MultipaneResizer = {render: function(){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{class:_vm.classnames},[_vm._t("default")],2)},staticRenderFns: [],
+  name: 'multipane-resizer',
+
+  props: {
+    affectFollower: {
+      type: Boolean,
+      default: false,
+    },
+  },  
+  computed: {
+    classnames: function classnames() {
+      return [
+        'multipane-resizer',
+        this.affectFollower ? 'affect-follower' : '' ];
+    },
+  }
 };
 
 if (typeof window !== 'undefined' && window.Vue) {
