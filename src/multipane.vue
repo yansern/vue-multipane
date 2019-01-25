@@ -1,5 +1,5 @@
 <template>
-  <div :class="classnames" :style="{ cursor, userSelect }" @mousedown="onMouseDown">
+  <div :class="classnames" :style="{ cursor, userSelect }" @mousedown.stop="onMouseDown">
     <slot></slot>
   </div>
 </template>
