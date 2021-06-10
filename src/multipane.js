@@ -38,10 +38,12 @@ export default {
   methods: {
     onMouseDown({ target: resizer, pageX: initialPageX, pageY: initialPageY }) {
       if (resizer.className && resizer.className.match('multipane-resizer')) {
+        const resizeNext = resizer.className.match('resize-next')
         let self = this;
         let { $el: container, layout } = self;
 
-        let pane = resizer.previousElementSibling;
+        let pane = resizeNext ? resizer.nextElementSibling : resizer.previousElementSibling;
+
         let {
           offsetWidth: initialPaneWidth,
           offsetHeight: initialPaneHeight,
@@ -54,7 +56,7 @@ export default {
         const resize = (initialSize, offset = 0) => {
           if (layout == LAYOUT_VERTICAL) {
             let containerWidth = container.clientWidth;
-            let paneWidth = initialSize + offset;
+            let paneWidth = initialSize + (resizeNext ? -offset : offset);
 
             return (pane.style.width = usePercentage
               ? paneWidth / containerWidth * 100 + '%'
@@ -63,7 +65,7 @@ export default {
 
           if (layout == LAYOUT_HORIZONTAL) {
             let containerHeight = container.clientHeight;
-            let paneHeight = initialSize + offset;
+            let paneHeight = initialSize + (resizeNext ? -offset : offset);
 
             return (pane.style.height = usePercentage
               ? paneHeight / containerHeight * 100 + '%'
