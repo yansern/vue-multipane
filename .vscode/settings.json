@@ -1,0 +1,15 @@
+{
+  "workbench.colorCustomizations": {
+    "[Default Light+]": {
+      "colorizer.color-1": "#ff9900",
+      "colorizer.color-2": "#f500f5",
+      "colorizer.color-3": "#54b9f8"
+    },
+    "colorizer.color-1": "#ffd700",
+    "colorizer.color-2": "#da70d6",
+    "colorizer.color-3": "#87cefa",
+    "activityBar.background": "#2E3001",
+    "titleBar.activeBackground": "#414301",
+    "titleBar.activeForeground": "#FBFEC1"
+  }
+}
